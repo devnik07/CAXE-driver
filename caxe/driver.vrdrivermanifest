@@ -1,0 +1,10 @@
+{
+  "alwaysActivate": true,
+  "name": "caxe",
+  "directory": "",
+  "resourceOnly": false,
+  "hmd_presence": 
+  [
+        "*.*"
+  ]
+}

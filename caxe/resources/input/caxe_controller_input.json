@@ -1,0 +1,12 @@
+{
+  "jsonid" : "input_profile",
+  "controller_type" : "caxe_controller",
+  "device_class" : "TrackedDeviceClass_GenericTracker",
+  "input_bindingui_mode" : "single_device",
+  "input_source" :
+  {
+    "/pose/raw" : {
+        "type" : "pose"
+    }
+  }
+}
