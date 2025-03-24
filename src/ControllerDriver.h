@@ -1,10 +1,15 @@
 #pragma once
 
 #include <openvr_driver.h>
+#include <serial/serial.h>
 #include <thread>
 #include <atomic>
 
 using namespace vr;
+
+const std::string PORT = "COM3";
+const uint32_t BAUD_RATE = 115200;
+const uint32_t TIMEOUT = 1000;
 
 /**
 * This class controls the behavior of the controller.
@@ -28,9 +33,11 @@ public:
 	**/
 	void RunFrame();
 	void PoseUpdateThread();
+	HmdQuaternion_t HmdQuaternion_FromEulerAngles(double roll, double pitch, double yaw);
 
 private:
 	uint32_t driverId;
 	std::atomic<bool> isActive;
 	std::thread poseUpdateThread;
+	serial::Serial serial_con;
 };
