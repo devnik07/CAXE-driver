@@ -9,6 +9,7 @@ set(DRIVER_NAME "driver_${TARGET_NAME}")
 project(${TARGET_NAME})
 
 set(OPENVR_DIR C:/Informatik/OpenVR)
+add_subdirectory(lib/serial)
 
 # If not set, determine the platform architecture
 if (NOT PLATFORM)
@@ -63,8 +64,8 @@ add_library(${DRIVER_NAME} SHARED
         src/ControllerDriver.cpp
 )
 
-target_link_libraries(${DRIVER_NAME} PRIVATE ${OPENVR_LIBRARIES})
-target_include_directories(${DRIVER_NAME} PRIVATE ${OPENVR_INCLUDE_DIR})
+target_link_libraries(${DRIVER_NAME} PRIVATE ${OPENVR_LIBRARIES} serial)
+target_include_directories(${DRIVER_NAME} PRIVATE ${OPENVR_INCLUDE_DIR} lib/serial/include/serial)
 
 # Copy driver assets to output folder
 add_custom_command(
