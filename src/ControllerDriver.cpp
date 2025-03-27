@@ -9,7 +9,7 @@ EVRInitError ControllerDriver::Activate(uint32_t unObjectId)
 	driverId = unObjectId;
 	PropertyContainerHandle_t props = VRProperties()->TrackedDeviceToPropertyContainer(driverId); // stores all the information about our driver
 
-	VRProperties()->SetStringProperty(props, Prop_InputProfilePath_String, "{caxe}/resources/input/caxe_controller_profile.json");
+	VRProperties()->SetStringProperty(props, Prop_InputProfilePath_String, "{caxe}/input/caxe_controller_profile.json");
 	VRProperties()->SetBoolProperty(props, Prop_WillDriftInYaw_Bool, true);
 
 
