@@ -37,15 +37,29 @@ DriverPose_t ControllerDriver::GetPose()
 {
 	DriverPose_t pose = { 0 };
 	HmdQuaternion_t orientation; 
-	float roll, pitch, yaw;
+	//float roll, pitch, yaw;
+	float w, x, y, z;
+	float openVRw, openVRx, openVRy, openVRz;
 
 	pose.qWorldFromDriverRotation.w = 1.f;
 	pose.qDriverFromHeadRotation.w = 1.f;
 
 	std::string measurements = serial_con.readline();
-	sscanf(measurements.c_str(), "%f,%f,%f", &roll, &pitch, &yaw);
+	//sscanf(measurements.c_str(), "%f,%f,%f", &roll, &pitch, &yaw);
+	//orientation = HmdQuaternion_FromEulerAngles(roll, pitch, yaw);
 
-	orientation = HmdQuaternion_FromEulerAngles(roll, pitch, yaw);
+	sscanf(measurements.c_str(), "%f,%f,%f,%f", &w, &x, &y, &z);
+
+	/**
+	* The MPU-6050 IMU uses a different coordinate system 
+	* (+y is up, +x is to the right, -z is forward) than the IMU.
+	* Hence, the quaternion components are being transformed.
+	**/
+	openVRw = w;
+	openVRx = -y;
+	openVRy = z;
+	openVRz = -x;
+	orientation = { openVRw, openVRx, openVRy, openVRz };
 	pose.qRotation = orientation;
 	pose.vecPosition[1] = 1.0f;
 	pose.vecPosition[2] = -1.0f;
@@ -122,9 +136,9 @@ HmdQuaternion_t ControllerDriver::HmdQuaternion_FromEulerAngles(double roll, dou
 
 	vr::HmdQuaternion_t q;
 	q.w = cr * cp * cy + sr * sp * sy;
-	q.x = cr * sp * cy + sr * cp * sy;
-	q.y = cr * cp * sy - sr * sp * cy;
-	q.z = sr * cp * cy - cr * sp * sy;
+	q.x = sr * cp * cy - cr * sp * sy;
+	q.y = cr * sp * cy + sr * cp * sy;
+	q.z = cr * cp * sy - sr * sp * cy;
 
 	return q;
 }
