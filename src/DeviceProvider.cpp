@@ -7,7 +7,7 @@ EVRInitError DeviceProvider::Init(IVRDriverContext* pDriverContext)
 	VRDriverLog()->Log("Initializing CAXE Controller");
 
 	controllerDriver = new ControllerDriver();
-	VRServerDriverHost()->TrackedDeviceAdded("caxe_controller", TrackedDeviceClass_GenericTracker, controllerDriver);
+	VRServerDriverHost()->TrackedDeviceAdded("caxe_controller", TrackedDeviceClass_Controller, controllerDriver);
 	
 	return VRInitError_None;
 }

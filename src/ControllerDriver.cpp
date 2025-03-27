@@ -11,6 +11,7 @@ EVRInitError ControllerDriver::Activate(uint32_t unObjectId)
 
 	VRProperties()->SetStringProperty(props, Prop_InputProfilePath_String, "{caxe}/input/caxe_controller_profile.json");
 	VRProperties()->SetBoolProperty(props, Prop_WillDriftInYaw_Bool, true);
+	VRProperties()->SetInt32Property(props, Prop_ControllerRoleHint_Int32, ETrackedControllerRole::TrackedControllerRole_RightHand);
 
 
 	serial::Timeout timeout = serial::Timeout::simpleTimeout(TIMEOUT);

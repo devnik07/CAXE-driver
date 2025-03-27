@@ -2,7 +2,7 @@
   "jsonid" : "input_profile",
   "controller_type" : "caxe_controller",
   "legacy_bindings" : "{caxe}/input/legacy_bindings_caxe.json",
-  "device_class" : "TrackedDeviceClass_GenericTracker",
+  "device_class" : "TrackedDeviceClass_Controller",
   "input_bindingui_mode" : "single_device",
   "input_source" :
   {
