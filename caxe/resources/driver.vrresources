@@ -2,14 +2,14 @@
   "jsonid": "vrresources",
   "statusicons": {
     "Controller": {
-      "Prop_NamedIconPathDeviceOff_String": "{caxe}/resources/icons/controller_status_off.png",
-      "Prop_NamedIconPathDeviceSearching_String": "{caxe}/resources/icons/controller_status_searching.gif",
-      "Prop_NamedIconPathDeviceSearchingAlert_String": "{caxe}/resources/icons/controller_status_searching_alert.gif",
-      "Prop_NamedIconPathDeviceReady_String": "{caxe}/resources/icons/controller_status_ready.png",
-      "Prop_NamedIconPathDeviceReadyAlert_String": "{caxe}/resources/icons/controller_status_ready_alert.png",
-      "Prop_NamedIconPathDeviceNotReady_String": "{caxe}/resources/icons/controller_status_error.png",
-      "Prop_NamedIconPathDeviceStandby_String": "{caxe}/resources/icons/controller_status_standby.png",
-      "Prop_NamedIconPathDeviceAlertLow_String": "{caxe}/resources/icons/controller_status_ready_low.png"
+      "Prop_NamedIconPathDeviceOff_String": "{caxe}/icons/controller_status_off.png",
+      "Prop_NamedIconPathDeviceSearching_String": "{caxe}/icons/controller_status_searching.gif",
+      "Prop_NamedIconPathDeviceSearchingAlert_String": "{caxe}/icons/controller_status_searching_alert.gif",
+      "Prop_NamedIconPathDeviceReady_String": "{caxe}/icons/controller_status_ready.png",
+      "Prop_NamedIconPathDeviceReadyAlert_String": "{caxe}/icons/controller_status_ready_alert.png",
+      "Prop_NamedIconPathDeviceNotReady_String": "{caxe}/icons/controller_status_error.png",
+      "Prop_NamedIconPathDeviceStandby_String": "{caxe}/icons/controller_status_standby.png",
+      "Prop_NamedIconPathDeviceAlertLow_String": "{caxe}/icons/controller_status_ready_low.png"
     }
   }
 }

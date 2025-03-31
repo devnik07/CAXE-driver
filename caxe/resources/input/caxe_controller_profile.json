@@ -4,14 +4,19 @@
   "legacy_bindings" : "{caxe}/input/legacy_bindings_caxe.json",
   "device_class" : "TrackedDeviceClass_Controller",
   "input_bindingui_mode" : "single_device",
+  "input_bindingui_right" : {
+    "image" : "{caxe}/icons/caxe_controller.svg"
+  },
   "input_source" :
   {
     "/input/joystick" : {
         "type" : "joystick",
-        "click" : true
+        "click" : true,
+        "binding_image_point" : [ 100, 100 ]
     },
     "/pose/raw" : {
-        "type" : "pose"
+        "type" : "pose",
+		"binding_image_point" : [ 0, 0 ]
     }
   }
 }
