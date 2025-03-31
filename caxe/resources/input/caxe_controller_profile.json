@@ -6,6 +6,10 @@
   "input_bindingui_mode" : "single_device",
   "input_source" :
   {
+    "/input/joystick" : {
+        "type" : "joystick",
+        "click" : true
+    },
     "/pose/raw" : {
         "type" : "pose"
     }

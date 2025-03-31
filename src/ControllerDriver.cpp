@@ -13,6 +13,9 @@ EVRInitError ControllerDriver::Activate(uint32_t unObjectId)
 	VRProperties()->SetBoolProperty(props, Prop_WillDriftInYaw_Bool, true);
 	VRProperties()->SetInt32Property(props, Prop_ControllerRoleHint_Int32, ETrackedControllerRole::TrackedControllerRole_RightHand);
 
+	VRDriverInput()->CreateScalarComponent(props, "/input/joystick/x", &inputHandles[kInputHandle_joystick_x], VRScalarType_Absolute, VRScalarUnits_NormalizedTwoSided);
+	VRDriverInput()->CreateScalarComponent(props, "/input/joystick/y", &inputHandles[kInputHandle_joystick_y], VRScalarType_Absolute, VRScalarUnits_NormalizedTwoSided);
+	VRDriverInput()->CreateBooleanComponent(props, "/input/joystick/click", &inputHandles[kInputHandle_joystick_click]);
 
 	serial::Timeout timeout = serial::Timeout::simpleTimeout(TIMEOUT);
 	serial_con.setPort(PORT);
@@ -105,7 +108,7 @@ void ControllerDriver::DebugRequest(const char* pchRequest, char* pchResponseBuf
 
 /**
 * Updates the component states of the controller.
-* Since we don't have any components we won't update anything.
+* Since we do this in the additional thread, nothing will be done here.
 **/
 void ControllerDriver::RunFrame()
 {
@@ -114,11 +117,27 @@ void ControllerDriver::RunFrame()
 
 void ControllerDriver::PoseUpdateThread()
 {
+	
 	while (isActive) {
 
 		// Inform the vr server that our tracked device's pose has updated, giving it the pose returned by our GetPose().
 		VRServerDriverHost()->TrackedDevicePoseUpdated(driverId, GetPose(), sizeof(DriverPose_t));
+
 		VRDriverLog()->Log("Orientation updated");
+
+		/*
+		std::string measurements = serial_con.readline();
+		std::stringstream stream(measurements);
+		std::vector<float> values;
+		std::string temp;
+
+		while (std::getline(stream, temp, ',')) {
+			values.push_back(std::stof(temp));
+		}
+
+		VRDriverInput()->UpdateScalarComponent(inputHandles[kInputHandle_joystick_x], ConvertJoystickInput(values[kMeasurement_joystick_x]), 0);
+		VRDriverInput()->UpdateScalarComponent(inputHandles[kInputHandle_joystick_y], ConvertJoystickInput(values[kMeasurement_joystick_y]), 0);
+		VRDriverInput()->UpdateBooleanComponent(inputHandles[kInputHandle_joystick_click], values[kMeasurement_joystick_click] == 1.0f, 0);*/
 
 		// Update our pose every five milliseconds.
 		// In reality, you should update the pose whenever you have new data from your device.
@@ -141,4 +160,11 @@ HmdQuaternion_t ControllerDriver::HmdQuaternion_FromEulerAngles(double roll, dou
 	q.z = cr * cp * sy - sr * sp * cy;
 
 	return q;
+}
+
+/**
+* Conversion of joystick input (0 - 1023) to scalar values (-1 - +1) used by OpenVR.
+**/
+float ControllerDriver::ConvertJoystickInput(float joystickInput) {
+	return (joystickInput - JOYSTICK_IDLE) / 512.0f;
 }
